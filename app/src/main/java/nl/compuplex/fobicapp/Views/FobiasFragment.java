@@ -2,8 +2,11 @@ package nl.compuplex.fobicapp.Views;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -33,5 +36,20 @@ public class FobiasFragment extends ListFragment {
 
         FobiaListAdapter adapter = new FobiaListAdapter(getActivity(), mFobias);
         setListAdapter(adapter);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+
+
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        Fobia fobia = (Fobia) (l.getAdapter().getItem(position));
+        ft.replace(R.id.container, FobiaDetailFragment.newInstance(fobia));
+        ft.addToBackStack(null);
+        ft.commit();
+
+
+
     }
 }
