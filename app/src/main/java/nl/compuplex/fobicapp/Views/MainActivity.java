@@ -51,6 +51,21 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        if(findViewById(R.id.container) != null)
+        {
+            // if we are being restored from a previous state, then we dont need to do anything and should
+            // return or else we could end up with overlapping fragments.
+            if(savedInstanceState != null)
+                return;
+
+            // Create an instance of editorFrag
+            FobiasFragment fobiasFragment = new FobiasFragment();
+
+            // add fragment to the fragment container layout
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fobiasFragment).commit();
+        }
+
     }
 
     @Override
