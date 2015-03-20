@@ -18,7 +18,6 @@ import nl.compuplex.fobicapp.models.RegistrationContainer;
 
 
 public class PushRestCommunication extends AbstractRestCommunication {
-    //    private static final String SENDER_ID = "981927407915";
     private final String url = "http://phobicapp.compuplex.nl:10030";
     private GoogleCloudMessaging gcm;
     private RegistrationContainer registrationContainer;
@@ -29,7 +28,7 @@ public class PushRestCommunication extends AbstractRestCommunication {
         registrationContainer = new RegistrationContainer(appContext);
 
         if (!registrationContainer.isRegisteredLocally()) {
-            (new GcmRegister()).execute("981927407915");
+            (new GcmRegister()).execute("899680534003");
         }
 
     }

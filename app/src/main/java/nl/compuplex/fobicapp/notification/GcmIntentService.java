@@ -13,8 +13,8 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-import nl.compuplex.fobicapp.MainActivity;
 import nl.compuplex.fobicapp.R;
+import nl.compuplex.fobicapp.Views.MainActivity;
 
 public class GcmIntentService extends IntentService {
     public static final int NOTIFICATION_ID = 1;
@@ -56,6 +56,7 @@ public class GcmIntentService extends IntentService {
                     // This loop represents the service doing some work.
 
                     // Post notification of received message.
+                    System.out.println("Recieved push");
                     sendNotification((extras).get("message").toString());
                     break;
             }
