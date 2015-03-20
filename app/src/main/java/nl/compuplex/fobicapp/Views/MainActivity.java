@@ -3,29 +3,20 @@ package nl.compuplex.fobicapp.Views;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
+
+import nl.compuplex.fobicapp.R;
 import nl.compuplex.fobicapp.communication.PushRestCommunication;
 import nl.compuplex.fobicapp.models.RegistrationContainer;
-
-import java.util.ArrayList;
-
-import nl.compuplex.fobicapp.Model.Fobia;
-import nl.compuplex.fobicapp.Model.FobiaListAdapter;
-import nl.compuplex.fobicapp.R;
 
 
 public class MainActivity extends ActionBarActivity
@@ -57,17 +48,18 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        //TODO: Permanent solution for registering user in GCM
+        RegistrationContainer registrationContainer = new RegistrationContainer(this.getApplicationContext());
+        registrationContainer.storeUsername("Android_Demo");
+        PushRestCommunication pushRestCommunication = new PushRestCommunication();
+        pushRestCommunication.registerInBackground(this.getApplicationContext());
 
         if(findViewById(R.id.container) != null)
         {
             // if we are being restored from a previous state, then we dont need to do anything and should
             // return or else we could end up with overlapping fragments.
             if(savedInstanceState != null)
-        //TODO: Permanent solution for registering user in GCM
-        RegistrationContainer registrationContainer = new RegistrationContainer(this.getApplicationContext());
-        registrationContainer.storeUsername("Android_Demo");
-        PushRestCommunication pushRestCommunication = new PushRestCommunication();
-        pushRestCommunication.registerInBackground(this.getApplicationContext());
+
                 return;
 
             // Create an instance of editorFrag
@@ -172,7 +164,7 @@ public class MainActivity extends ActionBarActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_fobias, container, false);
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
             return rootView;
         }
 
