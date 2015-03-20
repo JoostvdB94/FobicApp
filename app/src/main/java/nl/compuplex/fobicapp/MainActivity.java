@@ -1,22 +1,20 @@
 package nl.compuplex.fobicapp;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+
+import nl.compuplex.fobicapp.communication.PushRestCommunication;
+import nl.compuplex.fobicapp.models.RegistrationContainer;
 
 
 public class MainActivity extends ActionBarActivity
@@ -45,6 +43,12 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        //TODO: Permanent solution for registering user in GCM
+        RegistrationContainer registrationContainer = new RegistrationContainer(this.getApplicationContext());
+        registrationContainer.storeUsername("Android_Demo");
+        PushRestCommunication pushRestCommunication = new PushRestCommunication();
+        pushRestCommunication.registerInBackground(this.getApplicationContext());
     }
 
     @Override
