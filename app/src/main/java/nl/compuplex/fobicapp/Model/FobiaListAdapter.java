@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ public class FobiaListAdapter extends BaseAdapter {
     ArrayList<Fobia> mFobias = new ArrayList<Fobia>();
 
     public FobiaListAdapter(Context context, ArrayList<Fobia> Fobias) {
-
         mContext = context;
         mFobias = Fobias;
     }
