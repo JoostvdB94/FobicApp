@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -83,22 +84,28 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment;
+        Fragment fragment = null;
 
         switch (position) {
             case 0:
                 fragment = getFobiasFragment();
                 break;
+            case 1:
+                Intent intent = new Intent(this, ReviewActivity.class);
+                startActivity(intent);
+                break;
             default:
                 fragment = getPlaceholderFragment(position);
         }
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .commit();
+        if (fragment != null) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack(null)
+                    .commit();
 
-        onSectionAttached(position + 1);
+            onSectionAttached(position + 1);
+        }
     }
 
     public void onSectionAttached(int number) {
@@ -107,7 +114,7 @@ public class MainActivity extends ActionBarActivity
                 mTitle = getString(R.string.title_fobias);
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                mTitle = getString(R.string.title_activity_review);
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
