@@ -2,6 +2,7 @@ package nl.compuplex.fobicapp.Views;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,8 +16,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import nl.compuplex.fobicapp.R;
+import nl.compuplex.fobicapp.communication.FobiaCommunication;
 import nl.compuplex.fobicapp.communication.PushRestCommunication;
 import nl.compuplex.fobicapp.models.RegistrationContainer;
 
@@ -124,12 +128,17 @@ public class MainActivity extends ActionBarActivity
         // 1. Instantiate an AlertDialog.Builder with its constructor
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setView(inflater.inflate(R.layout.dialog_addfobia, null));
+        //builder.setView(inflater.inflate(R.layout.dialog_addfobia, null));
+        final EditText name = new EditText(this);
+        builder.setView(name);
+
+        final Context context = this;
 
         // Add the buttons
         builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK button
+                FobiaCommunication communication = new FobiaCommunication();
+                communication.postPhobia(name.getText().toString());
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

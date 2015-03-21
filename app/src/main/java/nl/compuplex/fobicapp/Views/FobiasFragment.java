@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -55,8 +56,14 @@ public class FobiasFragment extends ListFragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onResume() {
+        super.onResume();
+
+        loadPhobias();
+    }
+
+    public void loadPhobias() {
+        Toast.makeText(getActivity(), "Loading phobias...", Toast.LENGTH_LONG).show();
 
         FobiaCommunication communication = new FobiaCommunication();
         communication.loadPhobias(getListView(), getActivity());
