@@ -63,8 +63,6 @@ public class FobiasFragment extends ListFragment {
     }
 
     public void loadPhobias() {
-        Toast.makeText(getActivity(), "Loading phobias...", Toast.LENGTH_LONG).show();
-
         FobiaCommunication communication = new FobiaCommunication();
         communication.loadPhobias(getListView(), getActivity());
     }
