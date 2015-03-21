@@ -18,6 +18,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fobia_name">Fobia naam</string>
     <string name="add_fobia_title">Voeg een fobia toe</string>
+    <string name="edit_fobia_title">Voer een nieuwe naam in.</string>
     <string name="save">Opslaan</string>
     <string name="cancel">annuleren</string>
 </resources>
