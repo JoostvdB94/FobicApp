@@ -16,7 +16,7 @@ import nl.compuplex.fobicapp.R;
  */
 public class RelaxationMethodActionDetailAdapter extends BaseAdapter {
     Context mContext;
-    ArrayList<RelaxationMethodAction> mRelaxationMethodActions;
+    public ArrayList<RelaxationMethodAction> mRelaxationMethodActions;
 
     public RelaxationMethodActionDetailAdapter(Context context, ArrayList<RelaxationMethodAction> relaxationMethodActions){
         mContext = context;
@@ -44,17 +44,19 @@ public class RelaxationMethodActionDetailAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.fragment_fobia_detail_list_item, null);
+            view = inflater.inflate(R.layout.fragment_relaxation_method_detail_list_item, null);
         }
         else {
             view = convertView;
         }
 
         TextView descriptionView = (TextView) view.findViewById(R.id.relaxationMethodDetailDescription);
+        TextView numberView = (TextView) view.findViewById(R.id.relaxationMethodDetailNumber);
 
         RelaxationMethodAction relaxationMethodAction = mRelaxationMethodActions.get(position);
 
         descriptionView.setText(relaxationMethodAction.mDiscription);
+        numberView.setText(String.valueOf(relaxationMethodAction.mNumber));
 
         return view;
     }

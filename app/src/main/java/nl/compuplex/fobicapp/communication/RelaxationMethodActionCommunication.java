@@ -3,12 +3,10 @@ package nl.compuplex.fobicapp.communication;
 import android.content.Context;
 import android.widget.ListView;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import nl.compuplex.fobicapp.Model.RelaxationMethodAction;
@@ -25,11 +23,12 @@ public class RelaxationMethodActionCommunication extends AbstractRestCommunicati
                 String jsonString;
                 String match = "";
                 try {
-                    JSONArray relaxationMethodActions = new JSONArray(response);
+                    JSONObject relaxationMethodObject= new JSONObject(response);
+                    JSONArray relaxationMethodActions = new JSONArray(relaxationMethodObject.get("activities").toString());
                     ArrayList<RelaxationMethodAction> relaxationMethodList = new ArrayList<RelaxationMethodAction>();
                     for (int i = 0; i < relaxationMethodActions.length(); i++) {
-                        String description = relaxationMethodActions.getJSONObject(i).toString();
-                        relaxationMethodList.add(new RelaxationMethodAction(description));
+                        String description = relaxationMethodActions.getString(i);
+                        relaxationMethodList.add(new RelaxationMethodAction(i+1,description));
                     }
                     RelaxationMethodActionDetailAdapter adapter = new RelaxationMethodActionDetailAdapter(context, relaxationMethodList);
                     relaxationMethodListView.setAdapter(adapter);

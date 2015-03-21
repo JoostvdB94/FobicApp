@@ -14,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import nl.compuplex.fobicapp.Model.ChangeViewCallback;
 import nl.compuplex.fobicapp.Model.Fobia;
 import nl.compuplex.fobicapp.Model.RelaxationMethod;
 import nl.compuplex.fobicapp.R;
@@ -80,7 +80,6 @@ public class FobiaDetailFragment extends ListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
     }
 
     @Override
@@ -126,6 +125,20 @@ public class FobiaDetailFragment extends ListFragment {
         mListener = null;
     }
 
+
+    class ChangeViewCallbackClass implements ChangeViewCallback {
+        public void changeView(RelaxationMethod bestMethod){
+            if(bestMethod != null) {
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction ft = manager.beginTransaction();
+
+                ft.replace(R.id.container, RelaxationMethodDetailFragment.newInstance(bestMethod));
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -134,7 +147,9 @@ public class FobiaDetailFragment extends ListFragment {
 
         ArrayList<String> ids = new ArrayList<String>();
         RelaxationMethodCommunication communication = new RelaxationMethodCommunication();
-        communication.loadRelaxationMethods("http://phobicapp.compuplex.nl/api/phobia/" + mID + "/relaxationmethod", getListView(), getActivity());
+        communication.loadRelaxationMethods("http://phobicapp.compuplex.nl/api/phobia/" + mID + "/relaxationmethod", getListView(), getActivity(),new ChangeViewCallbackClass());
+
+
     }
 
     /**
@@ -153,3 +168,5 @@ public class FobiaDetailFragment extends ListFragment {
     }
 
 }
+
+

@@ -5,7 +5,9 @@ package nl.compuplex.fobicapp.Model;
  */
 public class RelaxationMethodAction {
     public String mDiscription;
-    public RelaxationMethodAction(String description){
+    public Integer mNumber;
+    public RelaxationMethodAction(Integer number, String description){
         mDiscription = description;
+        mNumber = number;
     }
 }

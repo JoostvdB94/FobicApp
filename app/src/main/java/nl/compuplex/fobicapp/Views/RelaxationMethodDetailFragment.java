@@ -18,7 +18,7 @@ import nl.compuplex.fobicapp.communication.RelaxationMethodActionCommunication;
 /**
  * Created by joost on 21-3-15.
  */
-public class RelaxationMethodDetailFragment extends ListFragment{
+public class RelaxationMethodDetailFragment extends ListFragment {
 
 private OnFragmentInteractionListener mListener;
 public static String mPhobicId;
@@ -69,7 +69,9 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_relaxation_method_detail, container, false);
+        TextView titleView = (TextView) view.findViewById(R.id.relaxationMethodDetailTitle);
 
+        titleView.setText(mName);
 
 
         return view;

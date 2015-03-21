@@ -16,7 +16,7 @@ import nl.compuplex.fobicapp.R;
  */
 public class RelaxationMethodListAdapter extends BaseAdapter {
     Context mContext;
-    ArrayList<RelaxationMethod> mRelaxationMethods;
+    public ArrayList<RelaxationMethod> mRelaxationMethods;
 
     public RelaxationMethodListAdapter(Context context, ArrayList<RelaxationMethod> relaxationMethods){
         mContext = context;
