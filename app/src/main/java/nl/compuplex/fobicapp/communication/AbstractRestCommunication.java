@@ -12,6 +12,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -21,12 +22,12 @@ abstract class AbstractRestCommunication {
         final HttpClient httpclient = new DefaultHttpClient();
         final HttpGet httpget = new HttpGet(url);
 
-        (new AsyncTask<String, Integer, HttpResponse>() {
+        (new AsyncTask<String, Integer, String>() {
             @Override
-            protected HttpResponse doInBackground(String... params) {
-                HttpResponse response = null;
+            protected String doInBackground(String... params) {
+                String response = null;
                 try {
-                    response = httpclient.execute(httpget);
+                    response =  EntityUtils.toString(httpclient.execute(httpget).getEntity());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -40,21 +41,21 @@ abstract class AbstractRestCommunication {
             }
 
             @Override
-            protected void onPostExecute(HttpResponse httpResponse) {
-                super.onPostExecute(httpResponse);
-                callbackFinished.executeCallback(httpResponse);
+            protected void onPostExecute(String responsetext) {
+                super.onPostExecute(responsetext);
+                callbackFinished.executeCallback(responsetext);
             }
         }).execute();
     }
 
-    AsyncTask<JSONObject, Double, HttpResponse> post(String url, JSONObject data, final ResponseCallback callbackFinished, final ProgressCallback callbackProgress) {
+    AsyncTask<JSONObject, Double, String> post(String url, JSONObject data, final ResponseCallback callbackFinished, final ProgressCallback callbackProgress) {
         final HttpClient httpclient = new DefaultHttpClient();
         final HttpPost httppost = new HttpPost(url);
 
-        return new AsyncTask<JSONObject, Double, HttpResponse>() {
+        return new AsyncTask<JSONObject, Double, String>() {
             @Override
-            protected HttpResponse doInBackground(JSONObject... params) {
-                HttpResponse response = null;
+            protected String doInBackground(JSONObject... params) {
+                String response = null;
                 try {
                     String entity = "";
                     for (JSONObject param : params) {
@@ -67,7 +68,7 @@ abstract class AbstractRestCommunication {
                     // Execute HTTP Post Request
                     httppost.addHeader("Content-Type", "application/json");
 
-                    response = httpclient.execute(httppost);
+                    response =  EntityUtils.toString(httpclient.execute(httppost).getEntity());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -75,21 +76,21 @@ abstract class AbstractRestCommunication {
             }
 
             @Override
-            protected void onPostExecute(HttpResponse httpResponse) {
-                super.onPostExecute(httpResponse);
-                callbackFinished.executeCallback(httpResponse);
+            protected void onPostExecute(String responsetext) {
+                super.onPostExecute(responsetext);
+                callbackFinished.executeCallback(responsetext);
             }
         }.execute(data);
     }
 
-    AsyncTask<JSONObject, Double, HttpResponse> put(String url, JSONObject data, final ResponseCallback callbackFinished, final ProgressCallback callbackProgress) {
+    AsyncTask<JSONObject, Double, String> put(String url, JSONObject data, final ResponseCallback callbackFinished, final ProgressCallback callbackProgress) {
         final HttpClient httpclient = new DefaultHttpClient();
         final HttpPut httpput = new HttpPut(url);
 
-        return new AsyncTask<JSONObject, Double, HttpResponse>() {
+        return new AsyncTask<JSONObject, Double, String>() {
             @Override
-            protected HttpResponse doInBackground(JSONObject... params) {
-                HttpResponse response = null;
+            protected String doInBackground(JSONObject... params) {
+                String response = null;
                 try {
                     String entity = "";
                     for (JSONObject param : params) {
@@ -102,7 +103,7 @@ abstract class AbstractRestCommunication {
                     // Execute HTTP Post Request
                     httpput.addHeader("Content-Type", "application/json");
 
-                    response = httpclient.execute(httpput);
+                    response =  EntityUtils.toString(httpclient.execute(httpput).getEntity());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -110,9 +111,9 @@ abstract class AbstractRestCommunication {
             }
 
             @Override
-            protected void onPostExecute(HttpResponse httpResponse) {
-                super.onPostExecute(httpResponse);
-                callbackFinished.executeCallback(httpResponse);
+            protected void onPostExecute(String responsetext) {
+                super.onPostExecute(responsetext);
+                callbackFinished.executeCallback(responsetext);
             }
         }.execute(data);
     }
@@ -121,12 +122,12 @@ abstract class AbstractRestCommunication {
         final HttpClient httpclient = new DefaultHttpClient();
         final HttpDelete httpdelete = new HttpDelete(url);
 
-        (new AsyncTask<String, Integer, HttpResponse>() {
+        (new AsyncTask<String, Integer, String>() {
             @Override
-            protected HttpResponse doInBackground(String... params) {
-                HttpResponse response = null;
+            protected String doInBackground(String... params) {
+                String response = null;
                 try {
-                    response = httpclient.execute(httpdelete);
+                    response =  EntityUtils.toString(httpclient.execute(httpdelete).getEntity());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -140,9 +141,9 @@ abstract class AbstractRestCommunication {
             }
 
             @Override
-            protected void onPostExecute(HttpResponse httpResponse) {
-                super.onPostExecute(httpResponse);
-                callbackFinished.executeCallback(httpResponse);
+            protected void onPostExecute(String responsetext) {
+                super.onPostExecute(responsetext);
+                callbackFinished.executeCallback(responsetext);
             }
         }).execute();
     }

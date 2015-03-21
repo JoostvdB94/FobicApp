@@ -36,12 +36,11 @@ public class PushRestCommunication extends AbstractRestCommunication {
     private void sendRegistrationIfNotRegisteredYet() {
         this.get(url + "/users/" + registrationContainer.getUsername() + "/associations/", new ResponseCallback() {
             @Override
-            public void executeCallback(HttpResponse response) {
+            public void executeCallback(String response) {
                 String jsonString;
                 String match = "";
                 try {
-                    jsonString = EntityUtils.toString(response.getEntity());
-                    JSONObject jsonObj = new JSONObject(jsonString);
+                    JSONObject jsonObj = new JSONObject(response);
                     String assocString = jsonObj.get("associations").toString();
                     JSONArray assoc = new JSONArray(assocString);
                     for (int i = 0; i < assoc.length(); i++) {
@@ -53,8 +52,6 @@ public class PushRestCommunication extends AbstractRestCommunication {
                             }
                         }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -85,13 +82,11 @@ public class PushRestCommunication extends AbstractRestCommunication {
         }
         this.post(url + "/subscribe", nameValuePairs, new ResponseCallback() {
             @Override
-            public void executeCallback(HttpResponse response) {
-                if (response.getStatusLine().getStatusCode() == 200) {
-                    CharSequence text = "Registered!";
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(appContext, text, duration);
-                    toast.show();
-                }
+            public void executeCallback(String response) {
+                CharSequence text = "Registered!";
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(appContext, text, duration);
+                toast.show();
             }
         }, new ProgressCallback() {
             @Override
@@ -112,7 +107,7 @@ public class PushRestCommunication extends AbstractRestCommunication {
 
         this.post(url + "/unsubscribe", nameValuePairs, new ResponseCallback() {
             @Override
-            public void executeCallback(HttpResponse response) {
+            public void executeCallback(String response) {
                 //Check for statuscode 200?
             }
         }, new ProgressCallback() {
