@@ -78,7 +78,7 @@ public class GcmIntentService extends IntentService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("SNSChat bericht")
+                        .setContentTitle("Fobic App")
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                         .setContentText(msg)
                         .setSound(soundUri)
