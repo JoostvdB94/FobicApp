@@ -132,13 +132,13 @@ public class MainActivity extends ActionBarActivity
         final EditText name = new EditText(this);
         builder.setView(name);
 
-        final Context context = this;
+        final MainActivity activity = this;
 
         // Add the buttons
         builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 FobiaCommunication communication = new FobiaCommunication();
-                communication.postPhobia(name.getText().toString());
+                communication.postPhobia(name.getText().toString(), activity);
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -153,6 +153,11 @@ public class MainActivity extends ActionBarActivity
         AlertDialog dialog = builder.create();
 
         dialog.show();
+    }
+
+    public void refreshFobias() {
+        mFobiasFragment = null;
+        onNavigationDrawerItemSelected(0);
     }
 
 
