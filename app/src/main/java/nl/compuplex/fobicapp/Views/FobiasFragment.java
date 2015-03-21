@@ -1,8 +1,5 @@
 package nl.compuplex.fobicapp.Views;
 
-import android.app.AlertDialog;
-import android.app.Fragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,15 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import nl.compuplex.fobicapp.Model.Fobia;
-import nl.compuplex.fobicapp.Model.FobiaListAdapter;
 import nl.compuplex.fobicapp.R;
 import nl.compuplex.fobicapp.communication.FobiaCommunication;
 
@@ -74,6 +66,5 @@ public class FobiasFragment extends ListFragment {
         FobiaCommunication communication = new FobiaCommunication();
         communication.loadPhobias(getListView(), getActivity());
     }
-
 
 }
