@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="#"
-        android:id="@+id/fobiaDetailListItemNumber"
+        android:id="@+id/relaxationMethodDetailNumber"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -18,22 +18,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="SomeName"
-        android:id="@+id/fobiaDetailListItemName"
-        android:textSize="@dimen/abc_text_size_large_material"
-        android:padding="@dimen/activity_vertical_margin"
+        android:id="@+id/relaxationMethodDetailDescription"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/fobiaDetailListItemNumber"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="393dp"
-        android:layout_marginStart="393dp" />
+        android:layout_alignParentEnd="true"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:padding="@dimen/activity_vertical_margin"/>
 
 </RelativeLayout>

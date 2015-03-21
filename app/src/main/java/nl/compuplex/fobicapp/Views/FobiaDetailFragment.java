@@ -4,15 +4,22 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import nl.compuplex.fobicapp.Model.Fobia;
+import nl.compuplex.fobicapp.Model.RelaxationMethodAction;
 import nl.compuplex.fobicapp.R;
 import nl.compuplex.fobicapp.communication.RelaxationMethodCommunication;
 
@@ -60,11 +67,23 @@ public class FobiaDetailFragment extends ListFragment {
     }
 
     @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Toast.makeText(getActivity(),"Testen",Toast.LENGTH_LONG).show();
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        RelaxationMethodAction relaxationMethodAction = (RelaxationMethodAction) (l.getAdapter().getItem(position));
+        ft.replace(R.id.fobiaDetailContent, RelaxationMethodDetailFragment.newInstance(relaxationMethodAction));
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ArrayList<String> ids = new ArrayList<String>();
         RelaxationMethodCommunication communication = new RelaxationMethodCommunication();
-        communication.loadRelaxationMethods(getListView(), getActivity());
+        communication.loadRelaxationMethods("http://phobicapp.compuplex.nl/api/phobia/" + mID + "/relaxationmethod", getListView(), getActivity());
     }
 
     @Override
