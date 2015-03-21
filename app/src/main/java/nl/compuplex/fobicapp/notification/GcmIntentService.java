@@ -15,7 +15,6 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import nl.compuplex.fobicapp.R;
 import nl.compuplex.fobicapp.Views.MainActivity;
-import nl.compuplex.fobicapp.Views.ReviewActivity;
 
 public class GcmIntentService extends IntentService {
     public static final int NOTIFICATION_ID = 1;
@@ -74,7 +73,7 @@ public class GcmIntentService extends IntentService {
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent;
-        contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, ReviewActivity.class), 0);
+        contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
