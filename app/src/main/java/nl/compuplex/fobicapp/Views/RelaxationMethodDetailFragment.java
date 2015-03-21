@@ -67,11 +67,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
 
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_relaxation_method_detail, container, false);
-        TextView titleView = (TextView) view.findViewById(R.id.relaxationMethodDetailTitle);
-
-        titleView.setText(mName);
+    View view = inflater.inflate(R.layout.fragment_relaxation_method_detail, container, false);
 
 
         return view;
@@ -113,6 +109,11 @@ public void onResume() {
         mName = getArguments().getString("name");
         mPhobicId = getArguments().getString("phobicID");
         mNumber = getArguments().getInt("number");
+    // Inflate the layout for this fragment
+
+        TextView titleView = (TextView) getView().findViewById(R.id.relaxationMethodDetailTitle);
+
+        titleView.setText(mName);
         RelaxationMethodActionCommunication communication = new RelaxationMethodActionCommunication();
         communication.loadRelaxationMethods("http://phobicapp.compuplex.nl/api/phobia/"+mPhobicId+"/relaxationmethod/"+mId,getListView(), getActivity());
         }
