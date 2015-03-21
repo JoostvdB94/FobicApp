@@ -23,4 +23,5 @@
     <string name="cancel">annuleren</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="rating_question">Hoe heeft deze activiteit u geholpen?</string>
 </resources>
