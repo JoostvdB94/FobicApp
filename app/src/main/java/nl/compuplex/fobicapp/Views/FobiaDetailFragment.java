@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import nl.compuplex.fobicapp.Model.Fobia;
 import nl.compuplex.fobicapp.R;
+import nl.compuplex.fobicapp.communication.RelaxationMethodCommunication;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +24,7 @@ import nl.compuplex.fobicapp.R;
  * Use the {@link FobiaDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FobiaDetailFragment extends Fragment {
+public class FobiaDetailFragment extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
@@ -55,6 +57,14 @@ public class FobiaDetailFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        RelaxationMethodCommunication communication = new RelaxationMethodCommunication();
+        communication.loadRelaxationMethods(getListView(), getActivity());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -62,7 +72,7 @@ public class FobiaDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fobia_detail, container, false);
 
-        TextView textView = (TextView) view.findViewById(R.id.title);
+        TextView textView = (TextView) view.findViewById(R.id.fobiaDetailTitle);
         textView.setText(getArguments().getString("TITLE"));
 
         return view;
