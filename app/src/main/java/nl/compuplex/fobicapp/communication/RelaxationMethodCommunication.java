@@ -28,8 +28,12 @@ public class RelaxationMethodCommunication extends AbstractRestCommunication {
                     JSONArray relaxationMethods = new JSONArray(jsonString);
                     ArrayList<RelaxationMethod> relaxationMethodList = new ArrayList<RelaxationMethod>();
                     for (int i = 0; i < relaxationMethods.length(); i++) {
+
+                        String id = relaxationMethods.getJSONObject(i).get("_id").toString();
                         String name = relaxationMethods.getJSONObject(i).get("name").toString();
-                        relaxationMethodList.add(new RelaxationMethod(i + 1, name));
+                        String phobia = relaxationMethods.getJSONObject(i).get("phobia").toString();
+
+                        relaxationMethodList.add(new RelaxationMethod(i + 1,id, name,phobia));
                     }
                     RelaxationMethodListAdapter adapter = new RelaxationMethodListAdapter(context, relaxationMethodList);
                     relaxationMethodListView.setAdapter(adapter);
