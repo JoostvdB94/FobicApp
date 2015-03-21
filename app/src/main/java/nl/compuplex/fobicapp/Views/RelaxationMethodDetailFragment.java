@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import nl.compuplex.fobicapp.Model.RelaxationMethodAction;
+import nl.compuplex.fobicapp.Model.RelaxationMethod;
 import nl.compuplex.fobicapp.R;
 import nl.compuplex.fobicapp.communication.RelaxationMethodActionCommunication;
 
@@ -21,8 +21,10 @@ import nl.compuplex.fobicapp.communication.RelaxationMethodActionCommunication;
 public class RelaxationMethodDetailFragment extends ListFragment{
 
 private OnFragmentInteractionListener mListener;
-public static String mID;
-public static String mTitle;
+public static String mPhobicId;
+public static String mId;
+public static String mName;
+public static Integer mNumber;
 
 /**
  * Use this factory method to create a new instance of
@@ -31,10 +33,13 @@ public static String mTitle;
  * @return A new instance of fragment FobiaDetailFragment.
  */
 // TODO: Rename and change types and number of parameters
-public static RelaxationMethodDetailFragment newInstance(RelaxationMethodAction relaxationMethodAction) {
+public static RelaxationMethodDetailFragment newInstance(RelaxationMethod relaxationMethod) {
         RelaxationMethodDetailFragment fragment = new RelaxationMethodDetailFragment();
         Bundle args = new Bundle();
-        args.putString("Description", relaxationMethodAction.mDiscription);
+        args.putString("phobicID", relaxationMethod.mPhobicID);
+        args.putString("ID", relaxationMethod.mID);
+        args.putString("name", relaxationMethod.mName);
+        args.putInt("number", relaxationMethod.mNumber);
         fragment.setArguments(args);
         return fragment;
         }
@@ -55,10 +60,6 @@ public void onCreate(Bundle savedInstanceState) {
 @Override
 public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        RelaxationMethodActionCommunication communication = new RelaxationMethodActionCommunication();
-
-        communication.loadRelaxationMethods("http://phobicapp.compuplex.nl/api/phobia/"+mID+"/relaxationmethod",getListView(), getActivity());
         }
 
 @Override
@@ -107,8 +108,12 @@ public void onDetach() {
 @Override
 public void onResume() {
         super.onResume();
-        mID = getArguments().getString("ID");
-        mTitle = getArguments().getString("TITLE");
+        mId = getArguments().getString("ID");
+        mName = getArguments().getString("name");
+        mPhobicId = getArguments().getString("phobicID");
+        mNumber = getArguments().getInt("number");
+        RelaxationMethodActionCommunication communication = new RelaxationMethodActionCommunication();
+        communication.loadRelaxationMethods("http://phobicapp.compuplex.nl/api/phobia/"+mPhobicId+"/relaxationmethod/"+mId,getListView(), getActivity());
         }
 
 /**

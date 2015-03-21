@@ -6,9 +6,13 @@ package nl.compuplex.fobicapp.Model;
 public class RelaxationMethod {
     public Integer mNumber;
     public String mName;
+    public String mPhobicID;
+    public String mID;
 
-    public RelaxationMethod(Integer number, String name) {
+    public RelaxationMethod(Integer number, String id, String name,String phobicID) {
         mNumber = number;
         mName = name;
+        mPhobicID = phobicID;
+        mID = id;
     }
 }
