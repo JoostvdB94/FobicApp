@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -46,6 +48,9 @@ public class FobiaDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+        //getActivity().getActionBar().setCustomView(R.menu.fobia_detail);
 
     }
 
@@ -61,6 +66,11 @@ public class FobiaDetailFragment extends Fragment {
         textView.setText(getArguments().getString("TITLE"));
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.fobia_detail, menu);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
