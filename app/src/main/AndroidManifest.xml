@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,12 +17,14 @@
         <!-- Google Cloud Messaging -->
         <receiver
             android:name=".notification.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="nl.compuplex.fobicapp" />
             </intent-filter>
         </receiver>
+
         <service android:name=".notification.GcmIntentService" />
         <!-- End Google Cloud Messaging -->
 
@@ -35,6 +36,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Views.ReviewActivity"
+            android:label="@string/title_activity_review"
+            android:parentActivityName=".Views.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.compuplex.fobicapp.Views.MainActivity" />
         </activity>
     </application>
 

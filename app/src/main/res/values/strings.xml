@@ -2,7 +2,7 @@
     <string name="app_name">FobicApp</string>
 
     <string name="title_fobias">Mijn Fobias</string>
-    <string name="title_section2">Section 2</string>
+    <string name="title_activity_review">Review</string>
     <string name="title_section3">Section 3</string>
 
     <string name="btn_add_fobia">Fobia toevoegen</string>
@@ -21,4 +21,6 @@
     <string name="edit_fobia_title">Voer een nieuwe naam in.</string>
     <string name="save">Opslaan</string>
     <string name="cancel">annuleren</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
