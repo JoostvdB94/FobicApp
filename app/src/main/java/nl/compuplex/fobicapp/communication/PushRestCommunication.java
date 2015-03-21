@@ -28,7 +28,7 @@ public class PushRestCommunication extends AbstractRestCommunication {
         registrationContainer = new RegistrationContainer(appContext);
 
         if (!registrationContainer.isRegisteredLocally()) {
-            (new GcmRegister()).execute("899680534003");
+            (new GcmRegister()).execute("689267346232");
         }
 
     }
