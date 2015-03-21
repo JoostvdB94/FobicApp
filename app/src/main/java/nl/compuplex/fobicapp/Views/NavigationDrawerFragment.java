@@ -294,6 +294,11 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
+        if (item.getItemId() == R.id.action_refresh) {
+            ((MainActivity)getActivity()).refreshFobias();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
