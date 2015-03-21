@@ -22,10 +22,9 @@ public class RelaxationMethodCommunication extends AbstractRestCommunication {
     public void loadRelaxationMethods(String url,final ListView relaxationMethodListView, final Context context) {
         this.get(url, new ResponseCallback() {
             @Override
-            public void executeCallback(HttpResponse response) {
+            public void executeCallback(String response) {
                 try {
-                    String jsonString = EntityUtils.toString(response.getEntity());
-                    JSONArray relaxationMethods = new JSONArray(jsonString);
+                    JSONArray relaxationMethods = new JSONArray(response);
                     ArrayList<RelaxationMethod> relaxationMethodList = new ArrayList<RelaxationMethod>();
                     for (int i = 0; i < relaxationMethods.length(); i++) {
 
@@ -37,8 +36,6 @@ public class RelaxationMethodCommunication extends AbstractRestCommunication {
                     }
                     RelaxationMethodListAdapter adapter = new RelaxationMethodListAdapter(context, relaxationMethodList);
                     relaxationMethodListView.setAdapter(adapter);
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

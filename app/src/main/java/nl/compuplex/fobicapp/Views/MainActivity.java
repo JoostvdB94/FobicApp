@@ -26,7 +26,7 @@ import nl.compuplex.fobicapp.models.RegistrationContainer;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, FobiaDetailFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, FobiaDetailFragment.OnFragmentInteractionListener, RelaxationMethodDetailFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.

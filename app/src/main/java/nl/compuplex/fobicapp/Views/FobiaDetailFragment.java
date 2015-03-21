@@ -68,11 +68,10 @@ public class FobiaDetailFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Toast.makeText(getActivity(),"Testen",Toast.LENGTH_LONG).show();
         FragmentManager manager = getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         RelaxationMethod relaxationMethod = (RelaxationMethod) (l.getAdapter().getItem(position));
-        ft.replace(R.id.fobiaDetailContent, RelaxationMethodDetailFragment.newInstance(relaxationMethod));
+        ft.replace(R.id.container, RelaxationMethodDetailFragment.newInstance(relaxationMethod));
         ft.addToBackStack(null);
         ft.commit();
     }

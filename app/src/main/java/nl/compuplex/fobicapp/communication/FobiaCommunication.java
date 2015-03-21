@@ -28,12 +28,11 @@ public class FobiaCommunication extends AbstractRestCommunication {
     public void loadPhobias(final ListView phobiaList, final Context context) {
         this.get(url, new ResponseCallback() {
             @Override
-            public void executeCallback(HttpResponse response) {
+            public void executeCallback(String response) {
                 String jsonString;
                 String match = "";
                 try {
-                    jsonString = EntityUtils.toString(response.getEntity());
-                    JSONArray fobias = new JSONArray(jsonString);
+                    JSONArray fobias = new JSONArray(response);
                     ArrayList<Fobia> fobiaList = new ArrayList<Fobia>();
                     for (int i = 0; i < fobias.length(); i++) {
                         JSONObject fobiaJson = fobias.getJSONObject(i);
@@ -44,8 +43,6 @@ public class FobiaCommunication extends AbstractRestCommunication {
                     }
                     FobiaListAdapter adapter = new FobiaListAdapter(context, fobiaList);
                     phobiaList.setAdapter(adapter);
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -67,11 +64,8 @@ public class FobiaCommunication extends AbstractRestCommunication {
         }
         this.post(url, nameValuePairs, new ResponseCallback() {
             @Override
-            public void executeCallback(HttpResponse response) {
-                if (response.getStatusLine().getStatusCode() == 200) {
-                    //fragment.loadPhobias();
-                    activity.refreshFobias();
-                }
+            public void executeCallback(String response) {
+                activity.refreshFobias();
             }
         }, new ProgressCallback() {
             @Override
@@ -84,7 +78,7 @@ public class FobiaCommunication extends AbstractRestCommunication {
     public void deletePhobia(String fobiaID, final MainActivity activity) {
         this.delete(url + fobiaID, new ResponseCallback() {
             @Override
-            public void executeCallback(HttpResponse response) {
+            public void executeCallback(String response) {
                 activity.refreshFobias();
             }
         }, new ProgressCallback() {
@@ -104,10 +98,8 @@ public class FobiaCommunication extends AbstractRestCommunication {
         }
         this.put(url + fobia._ID, nameValuePairs, new ResponseCallback() {
             @Override
-            public void executeCallback(HttpResponse response) {
-                if (response.getStatusLine().getStatusCode() == 200) {
-                    activity.refreshFobias();
-                }
+            public void executeCallback(String response) {
+                activity.refreshFobias();
             }
         }, new ProgressCallback() {
             @Override
