@@ -1,5 +1,7 @@
 package nl.compuplex.fobicapp.Views;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -19,10 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import nl.compuplex.fobicapp.Model.Fobia;
 import nl.compuplex.fobicapp.R;
+import nl.compuplex.fobicapp.communication.FobiaCommunication;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -250,12 +255,42 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_edit) {
-            Toast.makeText(getActivity(), "Edit", Toast.LENGTH_SHORT).show();
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+
+            // 1. Instantiate an AlertDialog.Builder with its constructor
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+            final EditText name = new EditText(getActivity());
+            name.setText(FobiaDetailFragment.mTitle);
+            builder.setView(name);
+
+            final MainActivity activity = (MainActivity)getActivity();
+
+            // Add the buttons
+            builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    FobiaCommunication communication = new FobiaCommunication();
+                    communication.putPhobia(new Fobia(FobiaDetailFragment.mID, name.getText().toString()), activity);
+                }
+            });
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User cancelled the dialog
+                }
+            });
+
+            builder.setTitle(R.string.edit_fobia_title);
+
+            // 3. Get the AlertDialog from create()
+            AlertDialog dialog = builder.create();
+
+            dialog.show();
             return true;
         }
 
         if (item.getItemId() == R.id.action_delete) {
-            Toast.makeText(getActivity(), "Delete", Toast.LENGTH_SHORT).show();
+            FobiaCommunication com = new FobiaCommunication();
+            com.deletePhobia(FobiaDetailFragment.mID, (MainActivity)getActivity());
             return true;
         }
 

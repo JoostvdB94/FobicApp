@@ -36,8 +36,11 @@ public class FobiaCommunication extends AbstractRestCommunication {
                     JSONArray fobias = new JSONArray(jsonString);
                     ArrayList<Fobia> fobiaList = new ArrayList<Fobia>();
                     for (int i = 0; i < fobias.length(); i++) {
-                        String name = fobias.getJSONObject(i).get("name").toString();
-                        fobiaList.add(new Fobia(name));
+                        JSONObject fobiaJson = fobias.getJSONObject(i);
+
+                        String id = fobiaJson.get("_id").toString();
+                        String name = fobiaJson.get("name").toString();
+                        fobiaList.add(new Fobia(id, name));
                     }
                     FobiaListAdapter adapter = new FobiaListAdapter(context, fobiaList);
                     phobiaList.setAdapter(adapter);
@@ -67,6 +70,42 @@ public class FobiaCommunication extends AbstractRestCommunication {
             public void executeCallback(HttpResponse response) {
                 if (response.getStatusLine().getStatusCode() == 200) {
                     //fragment.loadPhobias();
+                    activity.refreshFobias();
+                }
+            }
+        }, new ProgressCallback() {
+            @Override
+            public void executeCallback(Integer progress) {
+
+            }
+        });
+    }
+
+    public void deletePhobia(String fobiaID, final MainActivity activity) {
+        this.delete(url + fobiaID, new ResponseCallback() {
+            @Override
+            public void executeCallback(HttpResponse response) {
+                activity.refreshFobias();
+            }
+        }, new ProgressCallback() {
+            @Override
+            public void executeCallback(Integer progress) {
+
+            }
+        });
+    }
+
+    public void putPhobia(Fobia fobia, final MainActivity activity) { //, final FobiasFragment fragment) {
+        JSONObject nameValuePairs = new JSONObject();
+        try {
+            nameValuePairs.put("name", fobia.mTitle);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.put(url + fobia._ID, nameValuePairs, new ResponseCallback() {
+            @Override
+            public void executeCallback(HttpResponse response) {
+                if (response.getStatusLine().getStatusCode() == 200) {
                     activity.refreshFobias();
                 }
             }

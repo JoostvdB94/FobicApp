@@ -27,6 +27,8 @@ import nl.compuplex.fobicapp.communication.RelaxationMethodCommunication;
 public class FobiaDetailFragment extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
+    public static String mID;
+    public static String mTitle;
 
     /**
      * Use this factory method to create a new instance of
@@ -38,6 +40,7 @@ public class FobiaDetailFragment extends ListFragment {
     public static FobiaDetailFragment newInstance(Fobia fobia) {
         FobiaDetailFragment fragment = new FobiaDetailFragment();
         Bundle args = new Bundle();
+        args.putString("ID", fobia._ID);
         args.putString("TITLE", fobia.mTitle);
         fragment.setArguments(args);
         return fragment;
@@ -105,6 +108,13 @@ public class FobiaDetailFragment extends ListFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mID = getArguments().getString("ID");
+        mTitle = getArguments().getString("TITLE");
     }
 
     /**
