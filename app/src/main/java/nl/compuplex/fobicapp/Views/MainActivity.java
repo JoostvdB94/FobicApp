@@ -1,6 +1,9 @@
 package nl.compuplex.fobicapp.Views;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,8 +16,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import nl.compuplex.fobicapp.R;
+import nl.compuplex.fobicapp.communication.FobiaCommunication;
 import nl.compuplex.fobicapp.communication.PushRestCommunication;
 import nl.compuplex.fobicapp.models.RegistrationContainer;
 
@@ -32,6 +38,8 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    private FobiasFragment mFobiasFragment;
+    private PlaceholderFragment mPlaceholderFragment;
 
 
     @Override
@@ -75,15 +83,28 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment;
+
+        switch (position) {
+            case 0:
+                fragment = getFobiasFragment();
+                break;
+            default:
+                fragment = getPlaceholderFragment(position);
+        }
+
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
                 .commit();
+
+        onSectionAttached(position + 1);
     }
 
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = getString(R.string.title_fobias);
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
@@ -99,6 +120,44 @@ public class MainActivity extends ActionBarActivity
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
+    }
+
+    public void btnAddClick(View view) {
+        LayoutInflater inflater = getLayoutInflater();
+
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //builder.setView(inflater.inflate(R.layout.dialog_addfobia, null));
+        final EditText name = new EditText(this);
+        builder.setView(name);
+
+        final MainActivity activity = this;
+
+        // Add the buttons
+        builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                FobiaCommunication communication = new FobiaCommunication();
+                communication.postPhobia(name.getText().toString(), activity);
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+            }
+        });
+
+        builder.setTitle(R.string.add_fobia_title);
+
+        // 3. Get the AlertDialog from create()
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
+    }
+
+    public void refreshFobias() {
+        mFobiasFragment = null;
+        onNavigationDrawerItemSelected(0);
     }
 
 
@@ -133,6 +192,22 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    public FobiasFragment getFobiasFragment() {
+        if (mFobiasFragment == null) {
+            mFobiasFragment = new FobiasFragment();
+        }
+
+        return mFobiasFragment;
+    }
+
+    public PlaceholderFragment getPlaceholderFragment(int position) {
+        if (mPlaceholderFragment == null) {
+            mPlaceholderFragment = PlaceholderFragment.newInstance(position + 1);
+        }
+
+        return mPlaceholderFragment;
     }
 
     /**

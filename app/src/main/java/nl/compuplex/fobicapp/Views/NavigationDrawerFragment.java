@@ -104,7 +104,7 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 new String[]{
-                        getString(R.string.title_section1),
+                        getString(R.string.title_fobias),
                         getString(R.string.title_section2),
                         getString(R.string.title_section3),
                 }));
@@ -249,8 +249,13 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.action_edit) {
+            Toast.makeText(getActivity(), "Edit", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (item.getItemId() == R.id.action_delete) {
+            Toast.makeText(getActivity(), "Delete", Toast.LENGTH_SHORT).show();
             return true;
         }
 
