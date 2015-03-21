@@ -250,12 +250,12 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_edit) {
-            Toast.makeText(getActivity(), "Edit.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Edit", Toast.LENGTH_SHORT).show();
             return true;
         }
 
         if (item.getItemId() == R.id.action_delete) {
-            Toast.makeText(getActivity(), "Delete.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Delete", Toast.LENGTH_SHORT).show();
             return true;
         }
 

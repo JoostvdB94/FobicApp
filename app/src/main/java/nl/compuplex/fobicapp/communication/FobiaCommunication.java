@@ -1,5 +1,7 @@
 package nl.compuplex.fobicapp.communication;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.widget.ListView;
 
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 
 import nl.compuplex.fobicapp.Model.Fobia;
 import nl.compuplex.fobicapp.Model.FobiaListAdapter;
+import nl.compuplex.fobicapp.Views.FobiasFragment;
+import nl.compuplex.fobicapp.Views.MainActivity;
 
 /**
  * Created by Thomas on 21-3-2015.
@@ -51,7 +55,26 @@ public class FobiaCommunication extends AbstractRestCommunication {
         });
     }
 
-    public void postPhobia() {
+    public void postPhobia(String name, final MainActivity activity) { //, final FobiasFragment fragment) {
+        JSONObject nameValuePairs = new JSONObject();
+        try {
+            nameValuePairs.put("name", name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.post(url, nameValuePairs, new ResponseCallback() {
+            @Override
+            public void executeCallback(HttpResponse response) {
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    //fragment.loadPhobias();
+                    activity.refreshFobias();
+                }
+            }
+        }, new ProgressCallback() {
+            @Override
+            public void executeCallback(Integer progress) {
 
+            }
+        });
     }
 }
