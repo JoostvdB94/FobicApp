@@ -81,9 +81,7 @@ public class FobiaDetailFragment extends ListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayList<String> ids = new ArrayList<String>();
-        RelaxationMethodCommunication communication = new RelaxationMethodCommunication();
-        communication.loadRelaxationMethods("http://phobicapp.compuplex.nl/api/phobia/" + mID + "/relaxationmethod", getListView(), getActivity());
+
     }
 
     @Override
@@ -134,6 +132,10 @@ public class FobiaDetailFragment extends ListFragment {
         super.onResume();
         mID = getArguments().getString("ID");
         mTitle = getArguments().getString("TITLE");
+
+        ArrayList<String> ids = new ArrayList<String>();
+        RelaxationMethodCommunication communication = new RelaxationMethodCommunication();
+        communication.loadRelaxationMethods("http://phobicapp.compuplex.nl/api/phobia/" + mID + "/relaxationmethod", getListView(), getActivity());
     }
 
     /**
