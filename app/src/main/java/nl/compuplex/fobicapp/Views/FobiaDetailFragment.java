@@ -19,7 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import nl.compuplex.fobicapp.Model.Fobia;
-import nl.compuplex.fobicapp.Model.RelaxationMethodAction;
+import nl.compuplex.fobicapp.Model.RelaxationMethod;
 import nl.compuplex.fobicapp.R;
 import nl.compuplex.fobicapp.communication.RelaxationMethodCommunication;
 
@@ -71,8 +71,8 @@ public class FobiaDetailFragment extends ListFragment {
         Toast.makeText(getActivity(),"Testen",Toast.LENGTH_LONG).show();
         FragmentManager manager = getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
-        RelaxationMethodAction relaxationMethodAction = (RelaxationMethodAction) (l.getAdapter().getItem(position));
-        ft.replace(R.id.fobiaDetailContent, RelaxationMethodDetailFragment.newInstance(relaxationMethodAction));
+        RelaxationMethod relaxationMethod = (RelaxationMethod) (l.getAdapter().getItem(position));
+        ft.replace(R.id.fobiaDetailContent, RelaxationMethodDetailFragment.newInstance(relaxationMethod));
         ft.addToBackStack(null);
         ft.commit();
     }
